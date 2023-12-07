@@ -23,7 +23,7 @@ const SignupForm = () => {
       if (response.ok) {
         console.log('User signed up successfully!');
         // Redirect to Login page
-        navigate('/login');
+        navigate('/');
       } else {
         const responseData = await response.json();
         console.error('Error signing up:', responseData.message);

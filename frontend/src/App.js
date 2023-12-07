@@ -11,8 +11,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Home/>} />
-          <Route exact path="/signup" element={<SignupForm />} />
+          <Route exact path="/home" element={<Home/>} />
+          <Route exact path="/" element={<SignupForm />} />
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/createWhatsAppGroup" element={<CreateGroupForm />} />
           <Route exact path="/api" element={ <MaytapiCredentialsForm />} />

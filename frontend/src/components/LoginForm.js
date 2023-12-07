@@ -28,7 +28,7 @@ const LoginForm = () => {
         console.log('User logged in successfully!');
 
         // Redirect to Dashboard
-        navigate('/api');
+        navigate('/home');
       } else {
         console.error('Error logging in:', await response.text());
       }
