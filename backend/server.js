@@ -20,17 +20,19 @@ require('dotenv').config();
 app.use(express.json());
 
 // Enable CORS for all routes
-app.use(cors());
+const allowCors = (fn) => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', '*');
 
-const corsOptions = {
-  origin: 'https://whatsapp-group-backend.vercel.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204,
-  allowedHeaders: '*',
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  return await fn(req, res);
 };
-
-app.use(cors(corsOptions));
 
 
 mongoose.connect('mongodb+srv://maria:12345@cluster0.t1gpwj2.mongodb.net/?retryWrites=true&w=majority', {
@@ -79,7 +81,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-app.post('/signup', async (req, res) => {
+app.post('/signup', allowCors(async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -101,9 +103,9 @@ app.post('/signup', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+}));
 
-app.post('/login', async (req, res) => {
+app.post('/login', allowCors(async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -121,9 +123,9 @@ app.post('/login', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+}));
 
-app.post('/updateMaytapiCredentials', async (req, res) => {
+app.post('/updateMaytapiCredentials', allowCors(async (req, res) => {
   try {
     // Log received token
     //console.log('Received Token', req.header('Authorization'));
@@ -169,9 +171,9 @@ app.post('/updateMaytapiCredentials', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+}));
 
-app.post('/createWhatsAppGroup', verifyToken, async (req, res) => {
+app.post('/createWhatsAppGroup', allowCors(verifyToken, async (req, res) => {
   try {
     const { groupName, participantNumbers } = req.body;
     const userId = req.user._id;
@@ -196,7 +198,7 @@ app.post('/createWhatsAppGroup', verifyToken, async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+}));
 
 // Handler for the root path
 app.get('/', (req, res) => {
