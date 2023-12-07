@@ -198,8 +198,10 @@ app.post('/createWhatsAppGroup', verifyToken, async (req, res) => {
   }
 });
 
-
-
+// Handler for the root path
+app.get('/', (req, res) => {
+  res.send('Hello, this is your server!');
+});
 
 app.listen(PORT, async () => {
   console.log(`Server listening at http://localhost:${PORT}`);
