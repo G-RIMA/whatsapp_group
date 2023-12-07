@@ -22,7 +22,7 @@ const MaytapiCredentialsForm = () => {
       console.log('Headers:', headers);
 
       const response = await axios.post(
-        'http://localhost:3001/updateMaytapiCredentials',
+        '/https://whatsapp-group-9d77.vercel.app/updateMaytapiCredentials',
         {
           maytapiProductId,
           maytapiPhoneId,

@@ -10,7 +10,7 @@ const LoginForm = () => {
   const handleLogin = async () => {
     try {
       // Prepare the request payload
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('https://whatsapp-group-9d77.vercel.app/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
