@@ -33,7 +33,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose.connect('mongodb+srv://maria:12345@cluster0.t1gpwj2.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
