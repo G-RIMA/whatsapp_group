@@ -83,7 +83,7 @@ jobs:
       - name: Start backend server
         working-directory: release-backend
         run: |
-          node server.js
+          npm start
 
       - name: Install serve for serving static files
         run: npm install -g serve
