@@ -15,7 +15,7 @@ const User = require('./models/User');
 
 require('dotenv').config();
 
-let url = process.env.DATABASE_URL
+
 app.use(express.json());
 
 // Enable CORS for all routes
@@ -30,7 +30,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-mongoose.connect(url, {
+mongoose.connect('mongodb://groupwhatsapp-server:qnpOXzRjTvjdAUAnC3LNbItShfv1HmLPjDw7rGSfgcGpavjPmkna7sm5RfUocPlvsiCXwDqaBu3BACDbYx1K6Q==@groupwhatsapp-server.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@groupwhatsapp-server@', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   ssl:true
