@@ -20,7 +20,7 @@ app.use(express.json());
 
 // Enable CORS for all routes
 const corsOptions = {
-  origin: 'https://whatsapp-group-backend.vercel.app',
+  origin: 'http://localhost:3000',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
