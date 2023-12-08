@@ -21,20 +21,35 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: npm install, build, and test
+      - name: Install dependancies for backend
+        working-directory: backend
         run: |
           npm install
+
+      - name: Build and test backend
+        working-directory: backend
+        run: |
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: Install dependancies for frontend
+        working-directory: frontend
+        run: |
           npm run build --if-present
           npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: |
+          zip -r release-backend.zip backend/*
+          zip -r release-frontend.zip frontend/*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: release.zip
+          path: |
+            release-backend.zip
+            release-frontend.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,7 +65,9 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: |
+          unzip -o release-backend.zip -d release-backend
+          unzip -o release-frontend.zip -d release-frontend
       
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
