@@ -14,10 +14,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm start",
-    "build": "npm build",
-    "test": "npm test",
-    "eject": "npm eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "preswa": "react-scripts build",
+    "swa": "swa start build --api-location api"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +41,8 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.6"
+  },
+  "engines": {
+    "node": "^14.X"
   }
 }
