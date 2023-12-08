@@ -16,7 +16,7 @@ const User = require('./models/User');
 
 require('dotenv').config();
 
-
+let url = process.env.DATABASE_URL
 app.use(express.json());
 
 // Enable CORS for all routes
