@@ -3,7 +3,6 @@ const express = require('express');
 const ngrok = require('ngrok');
 const rp = require('request-promise-native');
 const fs = require('fs');
-const createGroup = require('./createGroup'); // Assuming both files are in the same directory
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -31,7 +30,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-mongoose.connect('mongodb+srv://maria:12345@cluster0.t1gpwj2.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
