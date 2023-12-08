@@ -33,8 +33,7 @@ app.use(cors(corsOptions));
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  ssl:true,
-  sslValidate: true
+  ssl:true
 });
 
 
