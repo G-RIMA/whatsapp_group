@@ -25,6 +25,7 @@ jobs:
         working-directory: backend
         run: |
           npm install
+          node server.js
 
       - name: Build and test backend
         working-directory: backend
@@ -34,7 +35,10 @@ jobs:
       
       - name: Install dependancies for frontend
         working-directory: frontend
-        run: npm install
+        run: |
+          npm install
+          npm start
+            
 
       - name: Build and test frontend
         working-directory: frontend
