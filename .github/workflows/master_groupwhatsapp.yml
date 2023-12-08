@@ -98,8 +98,8 @@ jobs:
           package: ./release-backend/backend
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AAAF6CDE20D44FBEA0C710047C38524B }}
 
-      - name: Install dependencies for backend
-        working-directory: release-backend/backend
+      - name: Install dependencies for frontend
+        working-directory: release-frontend/frontend
         run: npm install
   
       - name: Install serve for serving static files
