@@ -77,19 +77,26 @@ jobs:
       - name: Install MongoDB driver
         run: npm install mongodb
 
-      
-      - name: Install dependencies for backend
-        working-directory: release-backend
-        run: npm install
-
       - name: Install PM2
         run: npm install -g pm2
-        
+      
+      - name: Install dependencies for backend
+        working-directory: release-backend/backend
+        run: npm install  
 
       - name: Start backend server
-        working-directory: release-backend
+        working-directory: release-backend/backend
         run: |
           pm2 start server.js
+      
+      - name: 'Deploy backend to Azure Web App'
+        id: deploy-backend-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'groupwhatsapp'
+          slot-name: 'Production'
+          package: ./release-backend/backend
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AAAF6CDE20D44FBEA0C710047C38524B }}
 
       - name: Install serve for serving static files
         run: npm install -g serve
@@ -104,5 +111,5 @@ jobs:
         with:
           app-name: 'groupwhatsapp'
           slot-name: 'Production'
-          package: .
+          package: ./release-frontend
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AAAF6CDE20D44FBEA0C710047C38524B }}
