@@ -77,13 +77,7 @@ jobs:
       - name: Install MongoDB driver
         run: npm install mongodb
 
-      - name: Debug information
-        run: |
-          ls -R
-          cat release-backend/package.json
-          cat release-frontend/package.json
-
-
+      
       - name: Install dependencies for backend
         working-directory: release-backend
         run: npm install
