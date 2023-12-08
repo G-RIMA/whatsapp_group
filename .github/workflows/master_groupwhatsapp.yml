@@ -73,18 +73,21 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install PM2
+        run: npm install -g pm2
 
       - name: Install MongoDB driver
         run: npm install mongodb
       
       - name: Install dependencies for backend
         working-directory: release-backend/backend
-        run: npm install  
+        run: npm install
 
       - name: Start backend server
         working-directory: release-backend/backend
         run: |
-          npm start 
+          pm2 start server.js
       
       - name: 'Deploy backend to Azure Web App'
         id: deploy-backend-to-webapp
@@ -100,7 +103,7 @@ jobs:
   
       - name: Serve frontend
         working-directory: release-frontend/frontend
-        run: npm start
+        run: pm2 serve build --name frontend
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
