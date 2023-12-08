@@ -86,15 +86,6 @@ jobs:
         working-directory: release-backend/backend
         run: |
           pm2 start server.js
-      
-      - name: 'Deploy backend to Azure Web App'
-        id: deploy-backend-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'groupwhatsapp'
-          slot-name: 'Production'
-          package: ./release-backend/backend
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AAAF6CDE20D44FBEA0C710047C38524B }}
 
       - name: Unzip frontend artifact for deployment
         run: unzip -o release-frontend.zip -d release-frontend
@@ -108,8 +99,17 @@ jobs:
   
       - name: Serve frontend
         working-directory: release-frontend/frontend
-        run: pm2 start npm --name "frontend" -- start
+        run: pm2 serve build --name "frontend" --no-daemon
 
+      - name: 'Deploy backend to Azure Web App'
+        id: deploy-backend-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'groupwhatsapp'
+          slot-name: 'Production'
+          package: ./release-backend/backend
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AAAF6CDE20D44FBEA0C710047C38524B }}
+      
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
