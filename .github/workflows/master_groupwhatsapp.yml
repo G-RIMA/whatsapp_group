@@ -71,7 +71,7 @@ jobs:
       - name: Set up Node.js version for deployment
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install MongoDB driver
@@ -82,17 +82,21 @@ jobs:
         working-directory: release-backend
         run: npm install
 
+      - name: Install PM2
+        run: npm install -g pm2
+        
+
       - name: Start backend server
         working-directory: release-backend
         run: |
-          npm start &
+          pm2 start server.js
 
       - name: Install serve for serving static files
         run: npm install -g serve
   
       - name: Serve frontend
         working-directory: release-frontend
-        run: server -s build &
+        run: pm2 serve build --name frontend
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
