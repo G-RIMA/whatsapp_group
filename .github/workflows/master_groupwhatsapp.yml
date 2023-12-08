@@ -31,10 +31,15 @@ jobs:
         run: |
           npm run build --if-present
           npm run test --if-present
-
+      
       - name: Install dependancies for frontend
         working-directory: frontend
+        run: npm install
+
+      - name: Build and test frontend
+        working-directory: frontend
         run: |
+
           npm run build --if-present
           npm run test --if-present
 
